@@ -1,8 +1,10 @@
+<a id="list" routerLinkActive="active" [routerLink]="[recipe.id]" class="list-group-item clearfix margin" style="cursor: pointer">
 <div>
-  <img  src="https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg" alt="Generic placeholder image">
-  <h5 class="mt-0 mb-1 font-weight-bold">Recipe 1</h5>
-  <h6> Description of recipe 1 description</h6>
-</div>
+    <img [src]="recipe.imagePath" alt="Generic placeholder image">
+    <h5 class="mt-0 mb-1 font-weight-bold">{{recipe.name}}</h5>
+    <h6>{{recipe.description}}</h6>
+  </div>
+</a>
 
 
 
