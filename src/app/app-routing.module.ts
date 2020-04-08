@@ -5,6 +5,7 @@ import {RecipesComponent} from './ui/recipes/recipes.component';
 import {RecipeListComponent} from './ui/recipes/recipe-list/recipe-list.component';
 import {RecipesDetailComponent} from './ui/recipes/recipes-detail/recipes-detail.component';
 import {ShoppingListComponent} from './ui/shopping/shopping-list/shopping-list.component';
+import {RecipeFormComponent} from './ui/recipes/recipe-form/recipe-form.component';
 
 const appRouter: Routes = [
   {
@@ -12,8 +13,10 @@ const appRouter: Routes = [
   },
   {
     path: 'recipes', component: RecipesComponent, children: [
-      {path: '', component: RecipeListComponent},
-      {path: ':id', component: RecipesDetailComponent}]
+      {path: 'new', component: RecipeFormComponent},
+      {path: ':id', component: RecipesDetailComponent},
+      {path: ':id/edit', component: RecipeFormComponent}
+    ]
     // { path: ":id/edit", component: RecipeEditComponent, canActivate: [LogininRouteGuard] }
   },
   {

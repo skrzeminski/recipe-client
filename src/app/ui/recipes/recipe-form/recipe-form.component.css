@@ -1,0 +1,29 @@
+.margin {
+  margin-bottom: 8px;
+}
+
+.margin-top {
+  margin-top: 15px;
+}
+
+
+@media only screen and (max-width: 3000px) {
+
+  .btn-position-save {
+    left: 90px;
+  }
+  .btn-position-ing {
+    right: 30px;
+  }
+
+}
+@media only screen and (max-width: 991px) {
+
+  .btn-position-save {
+    left: 40px;
+  }
+  .btn-position-ing {
+    right: 40px;
+  }
+
+}

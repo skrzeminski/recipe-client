@@ -10,6 +10,8 @@ import {RecipesDetailComponent} from './ui/recipes/recipes-detail/recipes-detail
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import { ShoppingListComponent } from './ui/shopping/shopping-list/shopping-list.component';
+import { RecipeFormComponent } from './ui/recipes/recipe-form/recipe-form.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -20,12 +22,14 @@ import { ShoppingListComponent } from './ui/shopping/shopping-list/shopping-list
     RecipeListComponent,
     RecipeItemComponent,
     RecipesDetailComponent,
-    ShoppingListComponent
+    ShoppingListComponent,
+    RecipeFormComponent
   ],
   imports: [
     BrowserModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

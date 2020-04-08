@@ -4,24 +4,24 @@
 
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <img src="https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg" alt="">
+    <img [src]="recipe.imagePath" alt="">
   </div>
 </div>
 
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h5>Name of the recipe</h5>
+    <h5>{{recipe.name}}</h5>
     <div class="dropdown">
       <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-       Manage Recipe
+        Manage Recipe
       </button>
       <div class="dropdown-menu">
         <a class="dropdown-item" href="#">Add to shopping List</a>
-        <a class="dropdown-item" href="#">Edit Recipe</a>
-        <a class="dropdown-item" href="#">Delete Recipe</a>
+        <a  class="dropdown-item" [routerLink]="['edit']" >Edit Recipe</a>
+        <a (click)="onDeleteRecipe(recipe.id)" class="dropdown-item" >Delete Recipe</a>
       </div>
     </div>
-    <h5>Description of the recipe</h5>
+    <h5>{{recipe.description}}</h5>
   </div>
 </div>
 
