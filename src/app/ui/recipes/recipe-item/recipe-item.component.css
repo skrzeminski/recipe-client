@@ -17,5 +17,6 @@ img:hover {
 }
 
 h5, h6 {
+  color: darkslategray;
   text-align: center;
 }
