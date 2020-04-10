@@ -12,6 +12,7 @@ import {AppRoutingModule} from './app-routing.module';
 import { ShoppingListComponent } from './ui/shopping/shopping-list/shopping-list.component';
 import { RecipeFormComponent } from './ui/recipes/recipe-form/recipe-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { IngredientFormComponent } from './ui/recipes/ingredient-form/ingredient-form.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     RecipeItemComponent,
     RecipesDetailComponent,
     ShoppingListComponent,
-    RecipeFormComponent
+    RecipeFormComponent,
+    IngredientFormComponent
   ],
   imports: [
     BrowserModule,
