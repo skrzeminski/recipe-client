@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Recipe} from '../../../model/recipe';
 import {RecipeService} from '../../../service/recipe.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Ingredient} from '../../../model/ingredient';
 
 @Component({
   selector: 'app-ingredient-form',
@@ -11,7 +12,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class IngredientFormComponent implements OnInit {
 
-  @Input()
   recipe: Recipe;
   ingredientForm;
 
@@ -19,8 +19,8 @@ export class IngredientFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-        const id = params.id;
+    this.route.parent.params.subscribe(params => {
+        const id = params['id'];
         this.recipe = this.recipeService.getRecipeById(id);
       }
     );
@@ -35,10 +35,12 @@ export class IngredientFormComponent implements OnInit {
   }
 
   onSubmit() {
-
+    const name = this.ingredientForm.value.name;
+    const amount = this.ingredientForm.value.amount;
+    // tslint:disable-next-line:label-position
+    const newIngredient = new Ingredient(name, amount);
+    this.recipe.ingredients.push(newIngredient);
+    this.recipeService.updateRecipe(this.recipe);
   }
 
-  addIngredient() {
-
-  }
 }

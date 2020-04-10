@@ -72,4 +72,8 @@ export class RecipeService {
     this.recipes = this.recipes.filter(recipe => recipe.id !== id);
     this.recipesChanged.next(this.recipes);
   }
+
+  updateRecipe(recipe: Recipe) {
+    // TO DO
+  }
 }
