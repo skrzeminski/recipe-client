@@ -14,13 +14,12 @@ const appRouter: Routes = [
   {
     path: 'recipes', component: RecipesComponent, children: [
       {path: 'new', component: RecipeFormComponent},
+      {path: ':id/edit', component: RecipeFormComponent},
       {
         path: ':id', component: RecipesDetailComponent, children: [
           {path: ':newIngredient', component: IngredientFormComponent}
         ]
       },
-      {path: ':id/edit', component: RecipeFormComponent},
-
     ]
     // { path: ":id/edit", component: RecipeEditComponent, canActivate: [LogininRouteGuard] }
   },
