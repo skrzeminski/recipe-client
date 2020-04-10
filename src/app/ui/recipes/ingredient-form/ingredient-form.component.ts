@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-ingredient-form',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ingredient-form.component.css']
 })
 export class IngredientFormComponent implements OnInit {
+  ingredientForm;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+    let name = '';
+    let amount = '';
+    this.ingredientForm = new FormGroup({
+      name: new FormControl(name, Validators.required),
+      amount: new FormControl(amount, Validators.required)
+    });
   }
 
 }
