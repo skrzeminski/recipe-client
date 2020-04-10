@@ -1,14 +1,15 @@
-<form [formGroup]="ingredientForm">
+<form [formGroup]="ingredientForm" (ngSubmit)="onSubmit()">
   <br>
   <div class="form-row">
     <div class="col">
-      <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+      <input formControlName="name" type="text" class="form-control" id="name" placeholder="Enter name" name="name">
     </div>
     <div class="col">
-      <input type="number" class="form-control" placeholder="Enter amount" name="amount" min="1" max="100">
+      <input formControlName="amount" type="number" class="form-control" placeholder="Enter amount" name="amount"
+             min="1" max="100">
     </div>
     <div class="col">
-      <button type="button" class="btn btn-success">Add</button>
+      <button (click)="addIngredient()" type="button" class="btn btn-success">Add</button>
     </div>
 
   </div>
