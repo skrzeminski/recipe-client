@@ -21,7 +21,7 @@ export class IngredientFormComponent implements OnInit {
   ngOnInit() {
     this.route.parent.params.subscribe(params => {
         const id = params['id'];
-        this.recipe = this.recipeService.getRecipeById(id);
+        this.recipe = this.recipeService.getRecipeById(+id);
       }
     );
     console.log('recipe' + JSON.stringify(this.recipe));
