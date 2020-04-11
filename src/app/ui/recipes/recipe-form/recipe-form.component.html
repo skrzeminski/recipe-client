@@ -4,10 +4,11 @@
       Edit Recipe
     </h3>
   </div>
-  <div class="col-xs-3 col-sm-3 col-md-12 col-lg-12" >
+  <div class="col-xs-3 col-sm-3 col-md-12 col-lg-12">
     <form [formGroup]="recipeEditForm" (ngSubmit)="onSubmit()">
       <div class="text-right btn-position-save">
-        <button [disabled]='!recipeEditForm.valid' type="submit" class="btn btn-primary">Save</button>
+        <button *ngIf="!editMode" [disabled]='!recipeEditForm.valid' type="submit" class="btn btn-primary">Save</button>
+        <button *ngIf="editMode" [disabled]='!recipeEditForm.valid' type="submit" class="btn btn-primary">Update</button>
         <button (click)="onCancel()" type="button" class="btn btn-warning">Cancel</button>
       </div>
       <div class="row">
@@ -48,16 +49,25 @@
   </div>
 </div>
 <div class="row ">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <div class="col-12">
     <ul class="list-group">
-      <li *ngFor="let ingredient of editedRecipe.ingredients"
-          class="list-group-item shadow">{{ingredient.amount}} {{ingredient.name}}</li>
+      <div
+        *ngFor="let ingredient of editedRecipe?.ingredients">
+        <div class="col-12">
+          <li class="list-group-item shadow">{{ingredient.amount}} {{ingredient.name}}
+            <div class="col-4 float-right">
+              <button class="btn" (click)="onDeleteIngredient(ingredient)"><i class="fa fa-edit float-right"></i></button>
+              <button class="btn"><i class="fa fa-trash float-right"></i></button>
+            </div>
+          </li>
+        </div>
+      </div>
     </ul>
   </div>
 
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <br>
     <button routerLink="newIngredient" type="button" class="btn btn-secondary">Add Ingredient</button>
-    <router-outlet></router-outlet>
+    <app-ingredient-form></app-ingredient-form>
   </div>
 </div>

@@ -3,6 +3,7 @@ import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Recipe} from '../../../model/recipe';
 import {RecipeService} from '../../../service/recipe.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Ingredient} from '../../../model/ingredient';
 
 @Component({
   selector: 'app-recipe-form',
@@ -33,12 +34,15 @@ export class RecipeFormComponent implements OnInit {
   }
 
   onSubmit() {
-    const name = this.recipeEditForm.value.name;
-    const description = this.recipeEditForm.value.description;
-    const imagePath = this.recipeEditForm.value.imagePath;
-    const ingredients = this.recipeEditForm.value.ingredients;
-    const newRecipe = new Recipe(name, description, imagePath, ingredients);
-    this.recipeService.createNewRecipe(newRecipe);
+    this.editedRecipe.name = this.recipeEditForm.value.name;
+    this.editedRecipe.description = this.recipeEditForm.value.description;
+    this.editedRecipe.imagePath = this.recipeEditForm.value.imagePath;
+    // const ingredients = this.recipeEditForm.value.ingredients;
+    if (this.editMode) {
+      // const newRecipe = new Recipe(name, description, imagePath, ingredients);
+      this.recipeService.createNewRecipe(this.editedRecipe);
+    }
+    this.recipeService.updateRecipe(this.editedRecipe);
   }
 
   onCancel() {
@@ -72,5 +76,9 @@ export class RecipeFormComponent implements OnInit {
 
   deleteIngredient(i: number) {
 
+  }
+
+  onDeleteIngredient(ingredient: Ingredient) {
+    this.recipeService.deleteIngredient(this.editedRecipe, ingredient);
   }
 }

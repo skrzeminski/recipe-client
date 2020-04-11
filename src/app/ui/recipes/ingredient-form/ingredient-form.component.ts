@@ -12,10 +12,11 @@ import {Ingredient} from '../../../model/ingredient';
 })
 export class IngredientFormComponent implements OnInit {
 
+
   recipe: Recipe;
   ingredientForm;
 
-  constructor(private recipeService: RecipeService, private route: ActivatedRoute, private  rauter: Router) {
+  constructor(private recipeService: RecipeService, private route: ActivatedRoute, private  router: Router) {
   }
 
   ngOnInit() {
@@ -41,6 +42,7 @@ export class IngredientFormComponent implements OnInit {
     const newIngredient = new Ingredient(name, amount);
     this.recipe.ingredients.push(newIngredient);
     this.recipeService.updateRecipe(this.recipe);
+    this.router.navigate(['recipes', this.recipe.id, 'edit']);
   }
 
 }
