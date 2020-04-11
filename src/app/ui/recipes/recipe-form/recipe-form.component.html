@@ -44,31 +44,20 @@
         </div>
       </div>
       <br>
-      <div class="row">
-        <div class="col-xs-3 col-sm-3 col-md-8 col-lg-8">
-          <h3>Ingredients</h3>
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4 pull-right margin-top btn-position-ing">
-          <button type="button" class="btn btn-success" (click)="onAddIngredient()">Add Ingredient</button>
-        </div>
-        <div class="col-xs-12 margin-top" formArrayName="ingredients">
-          <div class="row" *ngFor="let ingredient of recipeEditForm.get('ingredients').controls;let i = index"
-               [formGroupName]="i">
-            <div class="col-xs-8 margin">
-              <input class="form-control" type="text" formControlName="name">
-            </div>
-            <div class="col-xs-2 margin">
-              <input class="form-control" type="number" formControlName="amount">
-            </div>
-            <div class="col-xs-2 margin">
-              <button type="button" class="btn btn-danger" (click)="deleteIngredient(i)">Delete</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="row">
-      </div>
     </form>
+  </div>
+</div>
+<div class="row ">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <ul class="list-group">
+      <li *ngFor="let ingredient of editedRecipe.ingredients"
+          class="list-group-item shadow">{{ingredient.amount}} {{ingredient.name}}</li>
+    </ul>
+  </div>
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <br>
+    <button routerLink="newIngredient" type="button" class="btn btn-secondary">Add Ingredient</button>
+    <router-outlet></router-outlet>
   </div>
 </div>

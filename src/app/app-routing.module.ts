@@ -8,24 +8,20 @@ import {RecipeFormComponent} from './ui/recipes/recipe-form/recipe-form.componen
 import {IngredientFormComponent} from './ui/recipes/ingredient-form/ingredient-form.component';
 
 const appRouter: Routes = [
-  {
-    path: '', redirectTo: 'recipes', pathMatch: 'full'
-  },
+  {path: '', redirectTo: 'recipes', pathMatch: 'full'},
+  {path: 'shopping-list', component: ShoppingListComponent},
   {
     path: 'recipes', component: RecipesComponent, children: [
       {path: 'new', component: RecipeFormComponent},
-      {path: ':id/edit', component: RecipeFormComponent},
       {
-        path: ':id', component: RecipesDetailComponent, children: [
+        path: ':id/edit', component: RecipeFormComponent, children: [
           {path: ':newIngredient', component: IngredientFormComponent}
         ]
       },
+      {path: ':id', component: RecipesDetailComponent},
     ]
-    // { path: ":id/edit", component: RecipeEditComponent, canActivate: [LogininRouteGuard] }
   },
-  {
-    path: 'shopping-list', component: ShoppingListComponent
-  }
+
 ];
 
 @NgModule({

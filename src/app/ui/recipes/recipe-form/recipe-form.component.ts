@@ -11,6 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class RecipeFormComponent implements OnInit {
 
+  editedRecipe: Recipe;
   idRecipe: number;
   editMode = false;
   recipeEditForm;
@@ -53,10 +54,10 @@ export class RecipeFormComponent implements OnInit {
     if (this.editMode) {
       this.route.params.subscribe(params => {
         this.idRecipe = +params.id;
-        const recipeById = this.recipeService.getRecipeById(this.idRecipe);
-        name = recipeById.name;
-        imagePath = recipeById.imagePath;
-        description = recipeById.description;
+        this.editedRecipe = this.recipeService.getRecipeById(this.idRecipe);
+        name = this.editedRecipe.name;
+        imagePath = this.editedRecipe.imagePath;
+        description = this.editedRecipe.description;
       });
     }
 
