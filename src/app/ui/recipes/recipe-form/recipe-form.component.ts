@@ -18,6 +18,7 @@ export class RecipeFormComponent implements OnInit {
   recipeEditForm;
   newForm = false;
   imagePath: string;
+  addIngredientClicked: boolean = false;
 
   constructor(private recipeService: RecipeService, private route: ActivatedRoute,
               private router: Router) {
@@ -26,6 +27,9 @@ export class RecipeFormComponent implements OnInit {
   ngOnInit() {
     this.newForm = this.route.params['id'] === undefined;
     this.editMode = this.route.snapshot.paramMap.get('id') != null;
+    if (!this.editMode) {
+      this.editedRecipe = new Recipe();
+    }
     this.initForm();
   }
 
@@ -38,7 +42,7 @@ export class RecipeFormComponent implements OnInit {
     this.editedRecipe.description = this.recipeEditForm.value.description;
     this.editedRecipe.imagePath = this.recipeEditForm.value.imagePath;
     // const ingredients = this.recipeEditForm.value.ingredients;
-    if (this.editMode) {
+    if (!this.editMode) {
       // const newRecipe = new Recipe(name, description, imagePath, ingredients);
       this.recipeService.createNewRecipe(this.editedRecipe);
     }
@@ -80,5 +84,10 @@ export class RecipeFormComponent implements OnInit {
 
   onDeleteIngredient(ingredient: Ingredient) {
     this.recipeService.deleteIngredient(this.editedRecipe, ingredient);
+  }
+
+  ingredientAdded(ingredient: Ingredient) {
+    this.addIngredientClicked = false;
+    this.editedRecipe.ingredients.push(ingredient);
   }
 }
