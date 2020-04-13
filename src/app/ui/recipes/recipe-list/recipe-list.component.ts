@@ -10,15 +10,18 @@ import {RecipeService} from '../../../service/recipe.service';
 export class RecipeListComponent implements OnInit {
 
   recipes: Recipe[];
-  constructor(private recipeService: RecipeService) { }
+
+  constructor(private recipeService: RecipeService) {
+  }
 
   ngOnInit() {
     this.recipeService.recipesChanged.subscribe(
       (recipes: Recipe[]) => {
         this.recipes = recipes;
       }
-    )
-    this.recipes = this.recipeService.getRecipes();
+    );
+    const subscription = this.recipeService.getRecipes().subscribe(recipes => this.recipes = recipes);
+    const asd = 'ad';
   }
 
 }

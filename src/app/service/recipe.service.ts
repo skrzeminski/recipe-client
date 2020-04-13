@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
 import {Recipe} from '../model/recipe';
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {Ingredient} from '../model/ingredient';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
 
+  RECIPE_URL = 'http://localhost:8080/recipes/';
   recipesChanged = new Subject<Recipe[]>();
 
   recipes: Recipe[] = [
@@ -52,11 +54,12 @@ export class RecipeService {
       ]
     }];
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
   }
 
-  public getRecipes() {
-    return this.recipes;
+  /** GET recipes from the server */
+  getRecipes(): Observable<Recipe[]> {
+    return this.httpClient.get<Recipe[]>(this.RECIPE_URL);
   }
 
   createNewRecipe(recipe: Recipe) {
