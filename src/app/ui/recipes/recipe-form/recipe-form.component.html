@@ -57,7 +57,7 @@
         <div class="col-12">
           <li class="list-group-item shadow">{{ingredient.amount}} {{ingredient.name}}
             <div class="col-4 float-right">
-              <button class="btn"><i class="fa fa-edit float-right"></i>
+              <button class="btn" (click)="onEditIngredient(ingredient)"><i class="fa fa-edit float-right"></i>
               </button>
               <button class="btn" (click)="onDeleteIngredient(ingredient)"><i class="fa fa-trash float-right"></i>
               </button>
@@ -72,10 +72,11 @@
     <br>
     <button (click)="addIngredientClicked=true" type="button" class="btn btn-secondary">Add Ingredient</button>
     <app-ingredient-form
-      *ngIf="addIngredientClicked"
+      [hidden]="!addIngredientClicked"
       [recipe]="editedRecipe"
       [isEditForm]="false"
       (ingredientAdded)="ingredientAdded($event)"
+      (ingredientEdited)="ingredientEdited($event)"
     ></app-ingredient-form>
   </div>
 </div>

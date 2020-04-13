@@ -18,7 +18,12 @@ export class IngredientFormComponent implements OnInit {
   isEditForm = false;
   @Output()
   ingredientAdded = new EventEmitter<Ingredient>();
+  @Output()
+  ingredientEdited = new EventEmitter<Ingredient>();
+
   ingredientForm;
+  private ingredient: Ingredient;
+
 
   constructor(private recipeService: RecipeService, private route: ActivatedRoute, private  router: Router) {
   }
@@ -35,7 +40,22 @@ export class IngredientFormComponent implements OnInit {
   onSubmit() {
     const name = this.ingredientForm.value.name;
     const amount = this.ingredientForm.value.amount;
-    const newIngredient = new Ingredient(name, amount);
-    this.ingredientAdded.emit(newIngredient);
+    if (!this.isEditForm) {
+      this.ingredient = new Ingredient(name, amount);
+      this.ingredientAdded.emit(this.ingredient);
+    }
+    this.ingredient.name = name;
+    this.ingredient.amount = amount;
+    this.ingredientEdited.emit(this.ingredient);
+    this.ingredientForm.reset();
+  }
+
+  editIngredientAction(ingredient: Ingredient) {
+    this.ingredient = ingredient;
+    this.isEditForm = true;
+    this.ingredientForm = new FormGroup({
+      name: new FormControl(ingredient.name, Validators.required),
+      amount: new FormControl(ingredient.amount, Validators.required)
+    });
   }
 }

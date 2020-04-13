@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Recipe} from '../../../model/recipe';
 import {RecipeService} from '../../../service/recipe.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Ingredient} from '../../../model/ingredient';
+import {IngredientFormComponent} from '../ingredient-form/ingredient-form.component';
 
 @Component({
   selector: 'app-recipe-form',
@@ -12,13 +13,17 @@ import {Ingredient} from '../../../model/ingredient';
 })
 export class RecipeFormComponent implements OnInit {
 
+  @ViewChild(IngredientFormComponent, {static: false})
+  ingredientFormComponent: IngredientFormComponent;
+
   editedRecipe: Recipe;
   idRecipe: number;
   editMode = false;
   recipeEditForm;
   newForm = false;
   imagePath: string;
-  addIngredientClicked: boolean = false;
+  addIngredientClicked = false;
+
 
   constructor(private recipeService: RecipeService, private route: ActivatedRoute,
               private router: Router) {
@@ -33,10 +38,6 @@ export class RecipeFormComponent implements OnInit {
     this.initForm();
   }
 
-  onAddIngredient() {
-
-  }
-
   onSubmit() {
     this.editedRecipe.name = this.recipeEditForm.value.name;
     this.editedRecipe.description = this.recipeEditForm.value.description;
@@ -47,6 +48,7 @@ export class RecipeFormComponent implements OnInit {
       this.recipeService.createNewRecipe(this.editedRecipe);
     }
     this.recipeService.updateRecipe(this.editedRecipe);
+    this.router.navigate(['recipes']);
   }
 
   onCancel() {
@@ -89,5 +91,15 @@ export class RecipeFormComponent implements OnInit {
   ingredientAdded(ingredient: Ingredient) {
     this.addIngredientClicked = false;
     this.editedRecipe.ingredients.push(ingredient);
+  }
+
+  onEditIngredient(ingredient: Ingredient) {
+    this.addIngredientClicked = true;
+    this.ingredientFormComponent.editIngredientAction(ingredient);
+  }
+
+
+  ingredientEdited($event: Ingredient) {
+    this.addIngredientClicked = false;
   }
 }
