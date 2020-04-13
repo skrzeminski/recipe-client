@@ -74,8 +74,8 @@ export class RecipeService {
   }
 
   deleteRecipe(id: number) {
-    this.recipes = this.recipes.filter(recipe => recipe.id !== id);
-    this.recipesChanged.next(this.recipes);
+    const url = this.RECIPE_URL + '/' + id;
+    return this.httpClient.delete<Recipe>(url);
   }
 
   updateRecipe(recipe: Recipe) {
