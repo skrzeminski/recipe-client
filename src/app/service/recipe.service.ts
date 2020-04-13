@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Recipe} from '../model/recipe';
 import {Observable, Subject} from 'rxjs';
 import {Ingredient} from '../model/ingredient';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -68,8 +68,9 @@ export class RecipeService {
     this.recipes.push(recipe);
   }
 
-  getRecipeById(id: number): Recipe {
-    return this.recipes.filter(recipe => recipe.id === id)[0];
+  getRecipeById(id: number): Observable<Recipe> {
+    const url = this.RECIPE_URL + '/' + id;
+    return this.httpClient.get<Recipe>(url);
   }
 
   deleteRecipe(id: number) {
@@ -82,7 +83,7 @@ export class RecipeService {
   }
 
   deleteIngredient(recipe: Recipe, ingredient: Ingredient) {
-    const foundRecipe = this.getRecipeById(recipe.id);
-    foundRecipe.ingredients = foundRecipe.ingredients.filter(ing => ing.id !== ingredient.id);
+    // const foundRecipe = this.getRecipeById(recipe.id);
+    // foundRecipe.ingredients = foundRecipe.ingredients.filter(ing => ing.id !== ingredient.id);
   }
 }

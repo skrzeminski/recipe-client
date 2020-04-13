@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Recipe} from '../../../model/recipe';
 import {RecipeService} from '../../../service/recipe.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -38,6 +38,29 @@ export class RecipeFormComponent implements OnInit {
     this.initForm();
   }
 
+  initForm() {
+    if (this.editMode) {
+
+      this.route.params.subscribe(params => {
+        this.idRecipe = +params.id;
+      });
+
+      this.recipeService.getRecipeById(this.idRecipe).subscribe(data => {
+        this.editedRecipe = data;
+        this.recipeEditForm = new FormGroup({
+          name: new FormControl(this.editedRecipe.name, Validators.required),
+          imagePath: new FormControl(this.editedRecipe.imagePath, Validators.required),
+          description: new FormControl(this.editedRecipe.description, Validators.required),
+        });
+      });
+    }
+    this.recipeEditForm = new FormGroup({
+      name: new FormControl('', Validators.required),
+      imagePath: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
+    });
+  }
+
   onSubmit() {
     this.editedRecipe.name = this.recipeEditForm.value.name;
     this.editedRecipe.description = this.recipeEditForm.value.description;
@@ -53,31 +76,6 @@ export class RecipeFormComponent implements OnInit {
 
   onCancel() {
 
-  }
-
-  initForm() {
-    let name = '';
-    let imagePath = '';
-    let description = '';
-    const ingredients = new FormArray([]);
-    console.log('this.editMode' + this.editMode);
-    if (this.editMode) {
-      this.route.params.subscribe(params => {
-        this.idRecipe = +params.id;
-        this.editedRecipe = this.recipeService.getRecipeById(this.idRecipe);
-        name = this.editedRecipe.name;
-        imagePath = this.editedRecipe.imagePath;
-        description = this.editedRecipe.description;
-      });
-    }
-
-    // Form set up Reactive
-    this.recipeEditForm = new FormGroup({
-      name: new FormControl(name, Validators.required),
-      imagePath: new FormControl(imagePath, Validators.required),
-      description: new FormControl(description, Validators.required),
-      ingredients
-    });
   }
 
   deleteIngredient(i: number) {

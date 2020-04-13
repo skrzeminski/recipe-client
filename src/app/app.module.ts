@@ -13,7 +13,7 @@ import {ShoppingListComponent} from './ui/shopping/shopping-list/shopping-list.c
 import {RecipeFormComponent} from './ui/recipes/recipe-form/recipe-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {IngredientFormComponent} from './ui/recipes/ingredient-form/ingredient-form.component';
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
