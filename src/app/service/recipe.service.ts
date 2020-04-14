@@ -63,9 +63,7 @@ export class RecipeService {
   }
 
   createNewRecipe(recipe: Recipe) {
-    const size = this.recipes.length;
-    recipe.id = size + 1;
-    this.recipes.push(recipe);
+    return this.httpClient.post<Recipe>(this.RECIPE_URL, recipe);
   }
 
   getRecipeById(id: number): Observable<Recipe> {
@@ -79,7 +77,8 @@ export class RecipeService {
   }
 
   updateRecipe(recipe: Recipe) {
-    // TO DO
+    const url = this.RECIPE_URL + '/' + recipe.id;
+    return this.httpClient.put<Recipe>(url, recipe);
   }
 
   deleteIngredient(recipe: Recipe, ingredient: Ingredient) {

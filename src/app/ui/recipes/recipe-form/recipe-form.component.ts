@@ -67,11 +67,25 @@ export class RecipeFormComponent implements OnInit {
     this.editedRecipe.imagePath = this.recipeEditForm.value.imagePath;
     // const ingredients = this.recipeEditForm.value.ingredients;
     if (!this.editMode) {
-      // const newRecipe = new Recipe(name, description, imagePath, ingredients);
-      this.recipeService.createNewRecipe(this.editedRecipe);
+      this.recipeService.createNewRecipe(this.editedRecipe).subscribe(() => {
+        let updatedRecipes: Recipe[];
+        this.recipeService.getRecipes().subscribe(data2 => {
+          updatedRecipes = data2;
+          this.recipeService.recipesChanged.next(updatedRecipes);
+          this.router.navigate(['recipes']);
+        });
+      });
+    } else {
+      this.recipeService.updateRecipe(this.editedRecipe).subscribe(() => {
+        let updatedRecipes: Recipe[];
+        this.recipeService.getRecipes().subscribe(data2 => {
+          updatedRecipes = data2;
+          this.recipeService.recipesChanged.next(updatedRecipes);
+          this.router.navigate(['recipes']);
+        });
+      });
     }
-    this.recipeService.updateRecipe(this.editedRecipe);
-    this.router.navigate(['recipes']);
+
   }
 
   onCancel() {
