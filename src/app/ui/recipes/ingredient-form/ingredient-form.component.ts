@@ -43,11 +43,14 @@ export class IngredientFormComponent implements OnInit {
     if (!this.isEditForm) {
       this.ingredient = new Ingredient(name, amount);
       this.ingredientAdded.emit(this.ingredient);
+      this.ingredientForm.reset();
+    } else {
+      this.ingredient.name = name;
+      this.ingredient.amount = amount;
+      this.ingredientEdited.emit(this.ingredient);
+      this.ingredientForm.reset();
     }
-    this.ingredient.name = name;
-    this.ingredient.amount = amount;
-    this.ingredientEdited.emit(this.ingredient);
-    this.ingredientForm.reset();
+
   }
 
   editIngredientAction(ingredient: Ingredient) {

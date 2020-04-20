@@ -10,6 +10,7 @@ import {HttpClient} from '@angular/common/http';
 export class RecipeService {
 
   RECIPE_URL = 'http://localhost:8080/recipes/';
+  INGREDIENT_URL = 'http://localhost:8080/ingredients/';
   recipesChanged = new Subject<Recipe[]>();
 
   recipes: Recipe[] = [
@@ -82,7 +83,17 @@ export class RecipeService {
   }
 
   deleteIngredient(recipe: Recipe, ingredient: Ingredient) {
-    // const foundRecipe = this.getRecipeById(recipe.id);
-    // foundRecipe.ingredients = foundRecipe.ingredients.filter(ing => ing.id !== ingredient.id);
+    const url = this.INGREDIENT_URL + '/' + ingredient.id;
+    return this.httpClient.delete<Ingredient>(url);
+  }
+
+  updateIngredient(ingredient: Ingredient) {
+    const url = this.INGREDIENT_URL + '/' + ingredient.id;
+    return this.httpClient.put<Ingredient>(url, ingredient);
+  }
+
+  createNewIngredient(recipe: Recipe, ingredient: Ingredient) {
+    const url = this.INGREDIENT_URL  + recipe.id;
+    return this.httpClient.post<Ingredient>(url, ingredient);
   }
 }

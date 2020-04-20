@@ -67,19 +67,18 @@ export class RecipeFormComponent implements OnInit {
     this.editedRecipe.imagePath = this.recipeEditForm.value.imagePath;
     // const ingredients = this.recipeEditForm.value.ingredients;
     if (!this.editMode) {
+      // this.reloadRecipe();
       this.recipeService.createNewRecipe(this.editedRecipe).subscribe(() => {
-        let updatedRecipes: Recipe[];
         this.recipeService.getRecipes().subscribe(data2 => {
-          updatedRecipes = data2;
+          const updatedRecipes: Recipe[] = data2;
           this.recipeService.recipesChanged.next(updatedRecipes);
           this.router.navigate(['recipes']);
         });
       });
     } else {
       this.recipeService.updateRecipe(this.editedRecipe).subscribe(() => {
-        let updatedRecipes: Recipe[];
         this.recipeService.getRecipes().subscribe(data2 => {
-          updatedRecipes = data2;
+          const updatedRecipes: Recipe[] = data2;
           this.recipeService.recipesChanged.next(updatedRecipes);
           this.router.navigate(['recipes']);
         });
@@ -97,12 +96,27 @@ export class RecipeFormComponent implements OnInit {
   }
 
   onDeleteIngredient(ingredient: Ingredient) {
-    this.recipeService.deleteIngredient(this.editedRecipe, ingredient);
+    this.recipeService.deleteIngredient(this.editedRecipe, ingredient).subscribe(() =>
+      this.reloadRecipe());
+  }
+
+  private reloadRecipe() {
+    this.recipeService.getRecipeById(this.idRecipe).subscribe(data => {
+      this.editedRecipe = data;
+      this.recipeEditForm = new FormGroup({
+        name: new FormControl(this.editedRecipe.name, Validators.required),
+        imagePath: new FormControl(this.editedRecipe.imagePath, Validators.required),
+        description: new FormControl(this.editedRecipe.description, Validators.required),
+      });
+    });
   }
 
   ingredientAdded(ingredient: Ingredient) {
-    this.addIngredientClicked = false;
-    this.editedRecipe.ingredients.push(ingredient);
+    this.recipeService.createNewIngredient(this.editedRecipe, ingredient).subscribe(() => {
+        this.addIngredientClicked = false;
+        this.reloadRecipe();
+      }
+    );
   }
 
   onEditIngredient(ingredient: Ingredient) {
@@ -111,7 +125,12 @@ export class RecipeFormComponent implements OnInit {
   }
 
 
-  ingredientEdited($event: Ingredient) {
-    this.addIngredientClicked = false;
+  ingredientEdited(ingredient: Ingredient) {
+    this.recipeService.updateIngredient(ingredient).subscribe(() => {
+        this.addIngredientClicked = false;
+        this.reloadRecipe();
+      }
+    );
+
   }
 }
