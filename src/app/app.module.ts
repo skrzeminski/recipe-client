@@ -14,6 +14,8 @@ import {RecipeFormComponent} from './ui/recipes/recipe-form/recipe-form.componen
 import {ReactiveFormsModule} from '@angular/forms';
 import {IngredientFormComponent} from './ui/recipes/ingredient-form/ingredient-form.component';
 import {HttpClientModule} from '@angular/common/http';
+import { LoginComponent } from './ui/login/login/login.component';
+import { RegisterComponent } from './ui/login/register/register.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import {HttpClientModule} from '@angular/common/http';
     RecipesDetailComponent,
     ShoppingListComponent,
     RecipeFormComponent,
-    IngredientFormComponent
+    IngredientFormComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

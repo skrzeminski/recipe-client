@@ -6,6 +6,8 @@ import {RecipesDetailComponent} from './ui/recipes/recipes-detail/recipes-detail
 import {ShoppingListComponent} from './ui/shopping/shopping-list/shopping-list.component';
 import {RecipeFormComponent} from './ui/recipes/recipe-form/recipe-form.component';
 import {IngredientFormComponent} from './ui/recipes/ingredient-form/ingredient-form.component';
+import {LoginComponent} from './ui/login/login/login.component';
+import {RegisterComponent} from './ui/login/register/register.component';
 
 const appRouter: Routes = [
   {path: '', redirectTo: 'recipes', pathMatch: 'full'},
@@ -21,7 +23,8 @@ const appRouter: Routes = [
       {path: ':id', component: RecipesDetailComponent},
     ]
   },
-
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
 ];
 
 @NgModule({
