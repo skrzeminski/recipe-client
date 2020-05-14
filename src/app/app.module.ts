@@ -13,9 +13,10 @@ import {ShoppingListComponent} from './ui/shopping/shopping-list/shopping-list.c
 import {RecipeFormComponent} from './ui/recipes/recipe-form/recipe-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {IngredientFormComponent} from './ui/recipes/ingredient-form/ingredient-form.component';
-import {HttpClientModule} from '@angular/common/http';
-import { LoginComponent } from './ui/login/login/login.component';
-import { RegisterComponent } from './ui/login/register/register.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {LoginComponent} from './ui/login/login/login.component';
+import {RegisterComponent} from './ui/login/register/register.component';
+import {JwtInterceptor} from './security/jwt-interceptor';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { RegisterComponent } from './ui/login/register/register.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule {
